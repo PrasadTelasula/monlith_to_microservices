@@ -1,0 +1,52 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: micro-example
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: instance
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/healthcheck-path: /
+    alb.ingress.kubernetes.io/healthcheck-interval-seconds: '15'
+    alb.ingress.kubernetes.io/healthcheck-timeout-seconds: '5'
+    alb.ingress.kubernetes.io/success-codes: '200'
+    alb.ingress.kubernetes.io/healthy-threshold-count: '2'
+    alb.ingress.kubernetes.io/unhealthy-threshold-count: '2'
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-south-1:304370290957:certificate/99d37c36-3c89-431e-b333-54040d2d8804
+
+spec:
+  rules:
+  - host: "micro-example.ebelearning.online"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/api/users"
+        backend:
+          service:
+            name: users
+            port:
+              number: 3000
+      - pathType: Prefix
+        path: "/api/posts"
+        backend:
+          service:
+            name: posts
+            port:
+              number: 3000
+      - pathType: Prefix
+        path: "/api/threads"
+        backend:
+          service:
+            name: threads
+            port:
+              number: 3000
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: users
+            port:
+              number: 3000
