@@ -35,7 +35,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   creationTimestamp: null
-  name: fleetman-application
+  name: posts-hpa
 spec:
   maxReplicas: 10
   minReplicas: 1
