@@ -43,4 +43,4 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: posts
-  targetCPUUtilizationPercentage: 2
+  targetCPUUtilizationPercentage: 5
